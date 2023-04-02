@@ -9,15 +9,12 @@ import { Provider } from "react-redux";
 import { store } from "./Store";
 import "./index.css";
 import { IntlProvider } from "react-intl";
-import { theme } from "../src/styles/theme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-
 root.render(
-  <ThemeProvider theme={theme}>
     <BrowserRouter>
       <Provider store={store}>
         <IntlProvider locale="en">
@@ -26,7 +23,6 @@ root.render(
         ,
       </Provider>
     </BrowserRouter>
-  </ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

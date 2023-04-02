@@ -1,20 +1,23 @@
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
 import { useEffect, useRef, useState } from "react";
+
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
+
 import { Grid, Modal, TextField, Typography } from "@mui/material";
 import CustomStyledButton from "../common/custom-styled-button";
+
 export const style = {
   containertwo: {
     backgroundColor: "#fff",
-    boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
+    // boxShadow: "0 1px 5px 0 rgba(0, 0, 0, 0.16)",
     borderRadius: "8px",
     padding: "21px 40px",
   },
   buttonbtn: {
     height: "48px",
     borderRadius: "8px",
-    boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
+    // boxShadow: "0 4px 8px 0 rgba(35, 219, 123, 0.4)",
     backgroundColor: "#355FE5",
     width: "50%",
     marginBottom: "-1%",
@@ -63,12 +66,13 @@ const MyForm = (props: IProps) => {
   useEffect(() => {
     const { data } = props;
     if (data && Object.keys(data).length) {
+      setValue("id", data?.id)
+      setValue("status", data?.status)
       setValue("task_name", data?.task_name);
       setValue("description", data?.description);
     }
 
     return () => {
-      console.log("form unmounted")
       setValue("task_name", "");
       setValue("description", "");
     }

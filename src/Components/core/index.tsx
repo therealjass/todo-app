@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 
-import NavBar from "../common/navbar";
 import DataTable from "./table";
 
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import MyForm, { style } from "./form";
+import { Box, Grid, Typography } from "@mui/material";
 import CustomStyledButton from "../common/custom-styled-button";
 
-const rows = [
-  { id: 1, task_name: 'Snow', status: "pending" },
-  { id: 2, task_name: 'fire', status: "pending" },
-];
 
 const enumActiveTab = {
   ALL: 1,
@@ -22,6 +17,7 @@ const ToDoMain = () => {
 
   const [variableData, setVariableData] = useState<any[]>([]);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
+  const [editableData, setEditableData] = useState<any>({});
 
   const [activeTab, setActiveTab] = useState<number>(enumActiveTab.ALL)
 
@@ -50,6 +46,18 @@ const ToDoMain = () => {
     setSelectedRows([]);
   }
 
+  const editEntry = (data: any) => {
+    let arrVD: any[] = [...variableData]
+    let index = arrVD.map((item, index) => {
+      if (item?.id === data?.id) {
+        return index
+      }
+    }).filter(item => item !== undefined)[0];
+    if (index === undefined) return;
+    arrVD[index] = data;
+    setVariableData(arrVD);
+  }
+
   const getData = () => {
     if (activeTab === enumActiveTab.ALL) return variableData;
     if (activeTab === enumActiveTab.PENDING) return variableData.filter(item => item.status === "pending")
@@ -60,10 +68,10 @@ const ToDoMain = () => {
     <Grid container sx={{ display: "flex", justifyContent: "center", }} margin={3}>
       <Grid item >
         <Typography variant="h3" sx={{ marginBottom: "5%" }}>
-          To Do App
+          TO-DO APPLICATION
         </Typography>
       </Grid>
-      <Grid container item sx={{ display: "flex", flexDirection: "row", justifyContent: "center", }} >
+      <Grid container item sx={{ display: "flex", flexDirection: "row", justifyContent: "center", }} marginTop={2} >
         <Grid item xs={12} sx={{ display: "flex", flexDirection: "row", justifyContent: "center", }} >
           <CustomStyledButton
             keyValue={12}
@@ -87,64 +95,77 @@ const ToDoMain = () => {
             }}
           />
         </Grid>
-        <Grid item xs={9} sx={{ display: "flex", flexDirection: "row", }} margin={3} >
-          <CustomStyledButton
-            keyValue={10}
-            variant="contained"
-            style={style.buttonbtn}
-            sx={{
-              width: "100% !important"
-            }}
-            className="buttonCenterStyle"
-            disabled={false}
-            fullWidth={false}
-            textClassName={"largeButtonText"}
-            textComponent={"span"}
-            textStyle={style.text}
-            textContent={"All To-Do's"}
-            onClick={() => {
-              setActiveTab(enumActiveTab.ALL)
-            }}
-          />
 
-          <CustomStyledButton
-            keyValue={11}
-            variant="contained"
-            style={style.buttonbtn}
-            sx={{
-              width: "100% !important"
-            }}
-            className="buttonCenterStyle"
-            disabled={false}
-            fullWidth={false}
-            textClassName={"largeButtonText"}
-            textComponent={"span"}
-            textStyle={style.text}
-            textContent={"Completed To-Do's"}
-            onClick={() => {
-              setActiveTab(enumActiveTab.COMPLETED)
-            }}
-          />
-
-          <CustomStyledButton
-            keyValue={12}
-            variant="contained"
-            style={style.buttonbtn}
-            sx={{
-              width: "100% !important"
-            }}
-            className="buttonCenterStyle"
-            disabled={false}
-            fullWidth={false}
-            textClassName={"largeButtonText"}
-            textComponent={"span"}
-            textStyle={style.text}
-            textContent={"Pending To-Do's"}
-            onClick={() => {
-              setActiveTab(enumActiveTab.PENDING)
-            }}
-          />
+        <Grid item xs={9} sx={{ display: "flex", flexDirection: "row", }} marginTop={5} marginBottom={2} >
+          {
+            variableData && variableData.length ?
+              <>
+                <CustomStyledButton
+                  keyValue={10}
+                  variant={activeTab === enumActiveTab.ALL ? "contained" : "outlined"}
+                  style={activeTab === enumActiveTab.ALL ? style.buttonbtn : style.buttonbtnEx}
+                  textStyle={activeTab === enumActiveTab.ALL ? style.text : style.textEx}
+                  sx={{
+                    width: "100% !important",
+                    marginRight: 1
+                  }}
+                  className="buttonCenterStyle"
+                  disabled={false}
+                  fullWidth={false}
+                  textClassName={"largeButtonText"}
+                  textComponent={"span"}
+                  textContent={"All To-Do's"}
+                  onClick={() => {
+                    setActiveTab(enumActiveTab.ALL)
+                  }}
+                />
+                <CustomStyledButton
+                  keyValue={11}
+                  variant={activeTab === enumActiveTab.COMPLETED ? "contained" : "outlined"}
+                  style={activeTab === enumActiveTab.COMPLETED ? style.buttonbtn : style.buttonbtnEx}
+                  textStyle={activeTab === enumActiveTab.COMPLETED ? style.text : style.textEx}
+                  sx={{
+                    width: "100% !important",
+                    marginRight: 1
+                  }}
+                  className="buttonCenterStyle"
+                  disabled={false}
+                  fullWidth={false}
+                  textClassName={"largeButtonText"}
+                  textComponent={"span"}
+                  textContent={"Completed To-Do's"}
+                  onClick={() => {
+                    setActiveTab(enumActiveTab.COMPLETED)
+                  }}
+                />
+                <CustomStyledButton
+                  keyValue={12}
+                  variant={activeTab === enumActiveTab.PENDING ? "contained" : "outlined"}
+                  style={activeTab === enumActiveTab.PENDING ? style.buttonbtn : style.buttonbtnEx}
+                  textStyle={activeTab === enumActiveTab.PENDING ? style.text : style.textEx}
+                  sx={{
+                    width: "100% !important"
+                  }}
+                  className="buttonCenterStyle"
+                  disabled={false}
+                  fullWidth={false}
+                  textClassName={"largeButtonText"}
+                  textComponent={"span"}
+                  textContent={"Pending To-Do's"}
+                  onClick={() => {
+                    setActiveTab(enumActiveTab.PENDING)
+                  }}
+                />
+              </>
+              :
+              <Box sx={{display:"flex", justifyContent:"center", width:"100%"}}>
+                <Typography component={"span"} sx={{ fontSize: "14px", fontWeight: "bold", color: "grey" }}>
+                  Please add some new To-do's!
+                </Typography>
+              </Box>
+          }
         </Grid>
+
         <Grid item xs={12} marginTop={3} sx={{ display: "flex", flexDirection: "row", justifyContent: "center", }} marginBottom={3}>
           {
             variableData && variableData.length ?
@@ -159,6 +180,14 @@ const ToDoMain = () => {
                   }
                 }
                 }
+                openEditModal={(data) => {
+                  SetEditAddModal((p: any) => ({
+                    ...p,
+                    edit: true
+                  }))
+
+                  setEditableData(data);
+                }}
               />
               :
               null
@@ -167,7 +196,7 @@ const ToDoMain = () => {
         </Grid>
         {
           selectedRows && selectedRows.length ?
-            <Grid item xs={9} sx={{ display: "flex", flexDirection: "row", }} margin={3} >
+            <Grid item xs={9} sx={{ display: "flex", flexDirection: "row", }} margin={3} marginBottom={3}>
               {
                 activeTab === enumActiveTab.PENDING ?
                   <CustomStyledButton
@@ -175,7 +204,8 @@ const ToDoMain = () => {
                     variant="contained"
                     style={style.buttonbtn}
                     sx={{
-                      width: "100% !important"
+                      width: "100% !important",
+                      marginRight: 1
                     }}
                     className="buttonCenterStyle"
                     disabled={false}
@@ -185,9 +215,16 @@ const ToDoMain = () => {
                     textStyle={style.text}
                     textContent={selectedRows.length > 1 ? "Make them completed" : "Make it completed"}
                     onClick={() => {
-                      let ar = [...variableData];
-                      ar && ar.length ? ar.map((item: any) => { { item.status = "completed"; } }) : ar = [];
-                      setVariableData(ar);
+                      let selectedIDs = selectedRows.map(item => item?.id);
+                      let arrVD = variableData.map((item) => {
+                        if (selectedIDs.includes(item?.id)) {
+                          item.status = "completed";
+                        }
+
+                        return item;
+                      })
+
+                      setVariableData(arrVD);
                     }}
                   />
                   : null
@@ -197,7 +234,8 @@ const ToDoMain = () => {
                 variant="contained"
                 style={style.buttonbtn}
                 sx={{
-                  width: "100% !important"
+                  width: "100% !important",
+                  marginLeft: 1
                 }}
                 className="buttonCenterStyle"
                 disabled={false}
@@ -208,7 +246,6 @@ const ToDoMain = () => {
                 textContent={selectedRows.length > 1 ? "Delete Them" : "Delete it"}
                 onClick={() => {
                   deleteEntry()
-                  // setActiveTab(enumActiveTab.COMPLETED)
                 }}
               />
 
@@ -235,14 +272,16 @@ const ToDoMain = () => {
       <MyForm
         openModal={editAddModal.edit}
         closeModal={(type, data) => {
+          console.log(data, "edit")
           SetEditAddModal((p: any) => ({
             ...p,
             edit: false
           }))
           if (type === "cancel") return;
+          editEntry(data)
         }}
         type={"edit"}
-        data={variableData}
+        data={editableData}
       />
 
     </Grid>
