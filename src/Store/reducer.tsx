@@ -1,13 +1,9 @@
 import { combineReducers } from 'redux';
-import authenticationReducer from './Authentication/authentication-reducer';
-import applyLoanReducer from './Borrower Flow/BRW-ApplyLoan/apply-loan-reducer';
-import onBoardingReducer from './Borrower Flow/BRW-Onboarding/onboarding-reducer';
+import todoReducer from './todo/todo-reducer';
 
 
 const rootReducer = combineReducers({
-  authenticationReducer: authenticationReducer,
-  onBoardingReducer: onBoardingReducer,
-  applyLoanReducer: applyLoanReducer
+  todoReducer: todoReducer,
 });
 
 const rootReducerMain = (state: any, action: any) => {

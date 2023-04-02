@@ -9,15 +9,12 @@ import { Provider } from "react-redux";
 import { store } from "./Store";
 import "./index.css";
 import { IntlProvider } from "react-intl";
-import siteConfig from "./Config/siteConfig";
 import { theme } from "../src/styles/theme";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-/**Handling admin screens */
-localStorage.setItem(siteConfig.IS_ADMIN, "true");
 
 root.render(
   <ThemeProvider theme={theme}>
