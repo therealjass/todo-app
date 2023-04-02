@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif !important;
+  background: #e5e5e5;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: "Inter", Menlo, Monaco, Consolas, "Courier New", monospace;
+}
