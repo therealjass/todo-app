@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridApi, GridColDef, GridEditCellValueParams, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Box, Button } from '@mui/material';
 
 export type rowData = {
@@ -41,7 +41,6 @@ const DataTable = (props: IProps) => {
           const onClick = (e: any) => {
             e.stopPropagation(); // don't select this row after clicking
             props?.openEditModal(params.row)
-            console.log(params.row, "onclick");
           };
 
           return <Button onClick={onClick}>Edit</Button>;

@@ -80,11 +80,7 @@ const MyForm = (props: IProps) => {
   }, [props?.data])
 
   const onSubmit = (data: any) => {
-    console.log(data, "dats")
     props?.closeModal("save", { ...data })
-    // setValue("person_name", "");
-    // setValue("person_type", "");
-    // setValue("person_email", "");
   }
 
   return (

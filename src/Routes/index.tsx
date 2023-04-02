@@ -6,7 +6,7 @@ const MainRoutes = () => {
   return (
     <div>
       <Routes>
-      <Route path="/" element={<ToDoMain />} />
+        <Route path="/" element={<ToDoMain />} />
         <Route
           path={"/todo"}
           element={<ToDoMain />}

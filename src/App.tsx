@@ -1,10 +1,11 @@
+import { Grid } from '@mui/material';
 import './App.css';
 import MainRoutes from './Routes';
 
 const App = () => {
   return (
     <>
-      <MainRoutes />
+        <MainRoutes />
     </>
   );
 }
