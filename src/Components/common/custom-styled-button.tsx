@@ -11,6 +11,7 @@ const style = {
   },
   text: {
     color: "white",
+
   },
 }
 
@@ -46,6 +47,7 @@ const CustomStyledButton = (props: IProps) => {
       type={props?.type}
     >
       <Typography
+      sx={{fontSize:"14px"}}
         component={props?.textComponent || "span"}
         style={props?.textStyle || {}}
         className={props?.textClassName || ""}
