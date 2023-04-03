@@ -1,2 +1,2 @@
-# simply-simple-frontend
+# ToDo React App
 
